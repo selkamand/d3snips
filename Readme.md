@@ -1,6 +1,32 @@
-# D3 snippets
+# D3 snippets {.unlisted .unnumbered}
 
 Quick Reference D3 snippets
+
+## Table of Contents
+
+- [D3 snippets {.unlisted .unnumbered}](#d3-snippets-unlisted-unnumbered)
+  - [Table of Contents](#table-of-contents)
+  - [Get window dimensions](#get-window-dimensions)
+    - [Dynamic](#dynamic)
+    - [Static](#static)
+  - [Create SVG element](#create-svg-element)
+  - [Margin convention](#margin-convention)
+  - [Accessing 'columns'](#accessing-columns)
+  - [Getting Data bounds](#getting-data-bounds)
+    - [Data bounds: d3.Min and d3.Max](#data-bounds-d3min-and-d3max)
+    - [Data bounds: d3.extent (recommended)](#data-bounds-d3extent-recommended)
+  - [Drawing Axis](#drawing-axis)
+  - [Creating 'marks' data](#creating-marks-data)
+    - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
+    - [Version 2 (use an accessor function)](#version-2-use-an-accessor-function)
+    - [Version 3 (use an accessor function + scale function)](#version-3-use-an-accessor-function--scale-function)
+  - [Mapping properties to point radius](#mapping-properties-to-point-radius)
+  - [Draw marks](#draw-marks)
+  - [Datasets](#datasets)
+    - [Test Dataset](#test-dataset)
+  - [HTML](#html)
+    - [Removing overflow and margins](#removing-overflow-and-margins)
+
 
 ## Get window dimensions
 
