@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=88d4ece29cbef1ac7f2cf08eaf1541b36d87ce40" media="screen">
+    <link rel="stylesheet" href="/assets/css/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="/assets/css/non-screen.css" media="handheld, only screen and (max-device-width:640px)">
+
+    <script src="/assets/js/modernizr.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/assets/js/headsmart.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>D3 snippets | d3snips</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="D3 snippets" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="d3snips" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="D3 snippets" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","headline":"D3 snippets","name":"d3snips","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/selkamand/d3snips">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>d3snips</h1>
+            <h2></h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      
+        <div id="no-downloads">
+          <span class="inner">
+          </span>
+        </div>
+      
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1 id="d3-snippets">D3 snippets</h1>
+
+<p>Quick Reference D3 snippets</p>
+
+<h2 id="get-window-dimensions">Get window dimensions</h2>
+
+<h3 id="dynamic">Dynamic</h3>
+<pre><code class="language-{javascript}">// Get Window Dimensions
+const width = window.innerWidth;
+const height = window.innerHeight;
+</code></pre>
+
+<h3 id="static">Static</h3>
+
+<pre><code class="language-{javascript}">// Alternative for fixed size
+const width = 960
+const height = 500
+</code></pre>
+
+<h2 id="create-svg-element">Create SVG element</h2>
+<pre><code class="language-{javascript}">// Create SVG 
+const svg = d3
+  .select("body")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+</code></pre>
+
+<h2 id="margin-convention">Margin convention</h2>
+
+<p>In the SVG coordinate system the origin (0,0) is the top-left corner</p>
+
+<pre><code class="language-{javascript}">// Create Margin Object
+const margin = {
+  top: 20,
+  right: 20,
+  bottom: 30,
+  left: 40,
+};
+
+// Example of how to use in scales to define range
+const xScale = d3
+  .scaleLinear()
+  .range([margin.left, width - margin.right])
+
+const yScale = d3
+  .scaleLinear()
+  .range([height - margin.bottom, margin.top])
+</code></pre>
+
+<h2 id="accessing-columns">Accessing ‘columns’</h2>
+<p>Accessing data ‘columns’ can be surprisingly complicated for newcomers, since most data is defined as an array of objects (e.g. ‘Test dataset’ below).</p>
+
+<p>For D3 its usually best to define an ‘accessorFunction’ that takes an object (like each row in data)</p>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { x: 1, y: 10 },
+  { x: 2, y: 20 },
+  { x: 3, y: 15 },
+  { x: 4, y: 25 },
+  { x: 5, y: 18 },
+];
+
+// Get all values of x as an array
+const x_array = data.map(d =&gt; d.x)
+
+// Compute Minumum using D3
+const xMin = d3.min(x_array)
+
+// Alternatively, define an accessorFunction for your X and or Y axis that works with d3 functions like d3.min
+
+// Create accessor
+xAccessor = d =&gt; d.x
+
+// Compute Minimum
+const xMin = d3.min(data, xAccessor)
+</code></pre>
+
+<h2 id="getting-data-bounds">Getting Data bounds</h2>
+
+<p>Getting the min and max of your data to set the ‘domain’ of D3 scales.</p>
+
+<h3 id="data-bounds-d3min-and-d3max">Data bounds: d3.Min and d3.Max</h3>
+
+<p>Getting the min and max of your data using <strong>d3.min</strong> and <strong>d3.max</strong> to set ‘domain’ of D3 scales.</p>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { x: 1, y: 10 },
+  { x: 2, y: 20 },
+  { x: 3, y: 15 },
+  { x: 4, y: 25 },
+  { x: 5, y: 18 },
+];
+
+// Create accessor
+xAccessor = d =&gt; d.x
+yAccessor = d =&gt; d.y
+
+// Calculate Min
+const xMin = d3.min(data, xAccessor)
+const xMax = d3.max(data, xAccessor)
+const yMin = d3.min(data, yAccessor)
+const yMax = d3.max(data, yAccessor)
+
+// Define Scales
+const xScale = d3
+  .scaleLinear()
+  .domain([xMin, xMax])
+  .range([margin.left, width - margin.right])
+
+const yScale = d3
+  .scaleLinear()
+  .domain([yMin, yMax])
+  .range([height - margin.bottom, margin.top])
+</code></pre>
+
+<h3 id="data-bounds-d3extent-recommended">Data bounds: d3.extent (recommended)</h3>
+
+<p>Getting the min and max of your data using <strong>d3.extents</strong> to set ‘domain’ of D3 scales.</p>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { x: 1, y: 10 },
+  { x: 2, y: 20 },
+  { x: 3, y: 15 },
+  { x: 4, y: 25 },
+  { x: 5, y: 18 },
+];
+
+// Create accessor
+xAccessor = d =&gt; d.x
+yAccessor = d =&gt; d.y
+
+// Calculate Min
+const xExtent = d3.extent(data, xAccessor)
+const yExtent = d3.extent(data, yAccessor)
+
+// Define Scales
+const xScale = d3
+  .scaleLinear()
+  .domain(xExtent)
+  .range([margin.left, width - margin.right])
+
+const yScale = d3
+  .scaleLinear()
+  .domain(yExtent)
+  .range([height - margin.bottom, margin.top])
+</code></pre>
+
+<h2 id="drawing-axis">Drawing Axis</h2>
+
+<p>Once you’ve created scales using d3.scaleLinear you actually have to draw them</p>
+
+<pre><code class="language-{javascript}">// Create Axes From scales (e.g. using d3.scaleLinear())
+const xAxis = d3.axisBottom(xScale);
+const yAxis = d3.axisLeft(yScale);
+
+
+// Append axes to svg
+svg
+  .append("g")
+  .attr("class", "x axis")
+  .attr("transform", `translate(0, ${height - margin.bottom})`)
+  .call(xAxis);
+
+
+// Append y axis to svg
+svg
+  .append("g")
+  .attr("class", "y axis")
+  .attr("transform", `translate(${margin.left}, 0)`)
+  .call(yAxis);
+
+</code></pre>
+
+<h2 id="creating-marks-data">Creating ‘marks’ data</h2>
+
+<p>A great d3 convention is to create a marks array of objects that maps your data values to aesthetic properties (xpos &amp; ypos, color, etc).</p>
+
+<h3 id="version-1-simple-but-inflexible">Version 1 (simple but inflexible)</h3>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { age: 1, height: 50 },
+  { age: 2, height: 60 },
+  { age: 3, height: 70 },
+  { age: 4, height: 80 },
+  { age: 5, height: 90 },
+];
+
+// Create marks array
+const marks = data.map((d) =&gt; ({
+  x: d.age,
+  y: d.height,
+}));
+</code></pre>
+
+<h3 id="version-2-use-an-accessor-function">Version 2 (use an accessor function)</h3>
+
+<p>Improved flexibility  have already defined an accessor function</p>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { age: 1, height: 50 },
+  { age: 2, height: 60 },
+  { age: 3, height: 70 },
+  { age: 4, height: 80 },
+  { age: 5, height: 90 },
+];
+
+// Accessor functions
+const xAccessor = (d) =&gt; d.age;
+const yAccessor = (d) =&gt; d.height;
+
+
+// Create marks array
+const marks = data.map((d) =&gt; ({
+  x: xAccessor(d),
+  y: yAccessor(d),
+}));
+</code></pre>
+
+<h3 id="version-2-use-an-accessor-function--scale-function">Version 2 (use an accessor function + scale function)</h3>
+
+<p>We can add a previously defined scale function to automatically rescale data to pixel values using scales such as d3.linearScale()</p>
+
+<pre><code class="language-{javascript}">// Define dataset
+const data = [
+  { age: 1, height: 50 },
+  { age: 2, height: 60 },
+  { age: 3, height: 70 },
+  { age: 4, height: 80 },
+  { age: 5, height: 90 },
+];
+
+// Accessor functions
+const xAccessor = (d) =&gt; d.age;
+const yAccessor = (d) =&gt; d.height;
+
+// create margins
+const margin = {
+  top: 20,
+  right: 20,
+  bottom: 30,
+  left: 40,
+};
+
+// Create scales
+const xScale = d3
+  .scaleLinear()
+  .range([margin.left, width - margin.right])
+  .domain([xDomainMin, xDomainMax]);
+
+const yScale = d3
+  .scaleLinear()
+  .range([height - margin.bottom, margin.top])
+  .domain([yDomainMin, yDomainMax]);
+
+// Create marks array
+const marks = data.map((d) =&gt; ({
+  x: xScale(xAccessor(d)),
+  y: yScale(yAccessor(d)),
+}));
+</code></pre>
+
+<h2 id="datasets">Datasets</h2>
+
+<h3 id="test-dataset">Test Dataset</h3>
+
+<p>This test dataset includes both categorical and quantitative features.
+correlatedVar and antiCorrelatedVar are relative to age.</p>
+
+<pre><code class="language-{javascript}">// Dataset
+// prettier-ignore
+const data = [
+    { id: 1, name: 'Person1', age: 30, correlatedVar: 42, antiCorrelatedVar: 72, gender: 'Male', city: 'New York' },
+    { id: 2, name: 'Person2', age: 25, correlatedVar: 37, antiCorrelatedVar: 77, gender: 'Female', city: 'Los Angeles' },
+    { id: 3, name: 'Person3', age: 40, correlatedVar: 54, antiCorrelatedVar: 60, gender: 'Male', city: 'Chicago' },
+    { id: 4, name: 'Person4', age: 33, correlatedVar: 42, antiCorrelatedVar: 67, gender: 'Female', city: 'Houston' },
+    { id: 5, name: 'Person5', age: 29, correlatedVar: 37, antiCorrelatedVar: 75, gender: 'Male', city: 'Miami' },
+    { id: 6, name: 'Person6', age: 35, correlatedVar: 42, antiCorrelatedVar: 65, gender: 'Female', city: 'New York' },
+    { id: 7, name: 'Person7', age: 22, correlatedVar: 35, antiCorrelatedVar: 78, gender: 'Male', city: 'Los Angeles' },
+    { id: 8, name: 'Person8', age: 47, correlatedVar: 59, antiCorrelatedVar: 53, gender: 'Female', city: 'Chicago' },
+    { id: 9, name: 'Person9', age: 39, correlatedVar: 48, antiCorrelatedVar: 61, gender: 'Male', city: 'Houston' },
+    { id: 10, name: 'Person10', age: 41, correlatedVar: 54, antiCorrelatedVar: 59, gender: 'Female', city: 'Miami' },
+    { id: 11, name: 'Person41', age: 23, correlatedVar: 35, antiCorrelatedVar: 87, gender: 'Male', city: 'Los Angeles' },
+    { id: 12, name: 'Person42', age: 51, correlatedVar: 61, antiCorrelatedVar: 55, gender: 'Female', city: 'Chicago' },
+    { id: 13, name: 'Person43', age: 36, correlatedVar: 46, antiCorrelatedVar: 66, gender: 'Male', city: 'Houston' },
+    { id: 14, name: 'Person44', age: 42, correlatedVar: 49, antiCorrelatedVar: 61, gender: 'Female', city: 'Miami' },
+    { id: 15, name: 'Person45', age: 38, correlatedVar: 46, antiCorrelatedVar: 62, gender: 'Male', city: 'New York' },
+    { id: 16, name: 'Person46', age: 32, correlatedVar: 42, antiCorrelatedVar: 68, gender: 'Female', city: 'Los Angeles' },
+    { id: 17, name: 'Person47', age: 26, correlatedVar: 34, antiCorrelatedVar: 79, gender: 'Male', city: 'Chicago' },
+    { id: 18, name: 'Person48', age: 28, correlatedVar: 40, antiCorrelatedVar: 78, gender: 'Female', city: 'Houston' },
+    { id: 19, name: 'Person49', age: 33, correlatedVar: 42, antiCorrelatedVar: 72, gender: 'Male', city: 'Miami' },
+    { id: 20, name: 'Person50', age: 45, correlatedVar: 57, antiCorrelatedVar: 55, gender: 'Female', city: 'New York' }
+  ];
+</code></pre>
+
+<h2 id="html">HTML</h2>
+
+<h3 id="removing-overflow-and-margins">Removing overflow and margins</h3>
+
+<p>To remove scroll bars and html default margins around svg elements add the following to your html head</p>
+
+<pre><code class="language-{html}">  &lt;style&gt;
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    &lt;/style&gt;
+</code></pre>
+
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            
+              <p>this project by <a href="https://github.com/selkamand">selkamand</a> can be found on <a href="https://github.com/selkamand/d3snips">GitHub</a></p>
+            
+            
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+  </body>
+</html>
