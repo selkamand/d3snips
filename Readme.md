@@ -1,27 +1,26 @@
-# D3 snippets
-
+# D3 snippets <!-- omit from toc -->
+ 
 Quick Reference D3 snippets
 
 ## Table of Contents
 
-- [D3 snippets](#d3-snippets)
-  - [Table of Contents](#table-of-contents)
-  - [Get window dimensions](#get-window-dimensions)
-    - [Dynamic](#dynamic)
-    - [Static](#static)
-  - [Create SVG element](#create-svg-element)
-  - [Margin convention](#margin-convention)
-  - [Accessing 'columns'](#accessing-columns)
-  - [Getting Data bounds](#getting-data-bounds)
-    - [Data bounds: d3.Min and d3.Max](#data-bounds-d3min-and-d3max)
-    - [Data bounds: d3.extent (recommended)](#data-bounds-d3extent-recommended)
-  - [Drawing Axis](#drawing-axis)
-  - [Creating 'marks' data](#creating-marks-data)
-    - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
-    - [Version 2 (use an accessor function)](#version-2-use-an-accessor-function)
-    - [Version 3 (use an accessor function + scale function)](#version-3-use-an-accessor-function--scale-function)
-  - [Mapping properties to point radius](#mapping-properties-to-point-radius)
-  - [Draw marks](#draw-marks)
+- [Table of Contents](#table-of-contents)
+- [Get window dimensions](#get-window-dimensions)
+  - [Dynamic](#dynamic)
+  - [Static](#static)
+- [Create SVG element](#create-svg-element)
+- [Margin convention](#margin-convention)
+- [Accessing 'columns'](#accessing-columns)
+- [Getting Data bounds](#getting-data-bounds)
+  - [Data bounds: d3.Min and d3.Max](#data-bounds-d3min-and-d3max)
+  - [Data bounds: d3.extent (recommended)](#data-bounds-d3extent-recommended)
+- [Drawing Axis](#drawing-axis)
+- [Creating 'marks' data](#creating-marks-data)
+  - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
+  - [Version 2 (use an accessor function)](#version-2-use-an-accessor-function)
+  - [Version 3 (use an accessor function + scale function)](#version-3-use-an-accessor-function--scale-function)
+- [Mapping properties to point radius](#mapping-properties-to-point-radius)
+- [Draw marks](#draw-marks)
 - [Datasets](#datasets)
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
@@ -346,9 +345,9 @@ svg
   .attr("r", (d) => d.radius);
 ```
 
-# Datasets
+## Datasets
 
-## Test Dataset
+### Test Dataset
 
 This test dataset includes both categorical and quantitative features.
 correlatedVar and antiCorrelatedVar are relative to age.
@@ -381,9 +380,9 @@ const data = [
 ```
 
 
-# HTML
+## HTML
 
-## Removing overflow and margins
+### Removing overflow and margins
 
 To remove scroll bars and html default margins around svg elements add the following to your html head
 
