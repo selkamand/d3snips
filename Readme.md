@@ -236,7 +236,7 @@ const marks = data.map((d) => ({
 }));
 ```
 
-### Version 2 (use an accessor function + scale function)
+### Version 3 (use an accessor function + scale function)
 
 We can add a previously defined scale function to automatically rescale data to pixel values using scales such as d3.linearScale()
 
@@ -278,6 +278,45 @@ const marks = data.map((d) => ({
   x: xScale(xAccessor(d)),
   y: yScale(yAccessor(d)),
 }));
+```
+
+## Mapping properties to point radius
+
+When mapping a numerical value to size of a point in d3, its best practice to ensure area of the point is linearly related to the size of the data. Because area of a circle is pi*r^2 we should actually use d3.scaleSqrt()
+
+```{javascript}
+d3
+.scaleSqrt()
+.domain([0, maxDataValue]) 
+.range([0, maxRadius]) // Where maxRadius = the maximum radius possible for the circle
+```
+
+Some important notes. The above system of mapping follows a very conservative philosophy that we want to map area size to values as directly as possible. If a value is 0 or negative, then we wont even see the point on the plot. This can be considered honest representations of the data.
+
+An alternative approach is to always scale the values between variables. This will make sure the sqrt of data gets mapped to a radius of between 1 and 5. Even negative values will be shown on the plot and the size will always vary. Its like showing a heatmap with a relative scale. Depending on the situation, and what you're trying to show, it can be bad practice.
+
+```{javascript}
+minRadius = 1
+maxRadius = 5
+const radiusScale = d3
+  .scaleSqrt()
+  .domain(d3.extent(data, radiusAccessor))
+  .range([minRadius, maxRadius]);
+```
+
+## Draw marks
+
+Draw marks
+
+```{javascript}
+// draw marks
+svg
+  .selectAll("circle")
+  .data(marks)
+  .join("circle")
+  .attr("cx", (d) => d.xpos)
+  .attr("cy", (d) => d.ypos)
+  .attr("r", (d) => d.radius);
 ```
 
 ## Datasets
