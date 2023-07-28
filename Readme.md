@@ -13,7 +13,7 @@ Quick Reference D3 snippets
 - [Accessing 'columns'](#accessing-columns)
 - [Getting Data bounds](#getting-data-bounds)
   - [Data bounds: d3.Min and d3.Max](#data-bounds-d3min-and-d3max)
-  - [Data bounds: d3.extent (recommended)](#data-bounds-d3extent-recommended)
+  - [Data bounds: d3.extent \& nice (recommended)](#data-bounds-d3extent--nice-recommended)
 - [Drawing Axis](#drawing-axis)
 - [Creating 'marks' data](#creating-marks-data)
   - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
@@ -151,10 +151,10 @@ const yScale = d3
   .range([height - margin.bottom, margin.top])
 ```
 
-### Data bounds: d3.extent (recommended)
+### Data bounds: d3.extent & nice (recommended)
 
 Getting the min and max of your data using **d3.extents** to set 'domain' of D3 scales.
-This function returns the min and max values of the array. You can also add `.nice()` to the domain calls to round the extreme values (floor the min and ceil the max)
+This function returns the min and max values of the array. You can also add `.nice()` to the domain calls to round the extreme values (floor the min and ceil the max) and make the axes look nicer
 
 ```{javascript}
 // Define dataset
