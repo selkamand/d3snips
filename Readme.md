@@ -129,6 +129,7 @@ const yScale = d3
 ### Data bounds: d3.extent (recommended)
 
 Getting the min and max of your data using **d3.extents** to set 'domain' of D3 scales.
+This function returns the min and max values of the array. You can also add .nice() to the domain calls to round the extreem values (floor the min and ceil the max)
 
 ```{javascript}
 // Define dataset
@@ -151,12 +152,12 @@ const yExtent = d3.extent(data, yAccessor)
 // Define Scales
 const xScale = d3
   .scaleLinear()
-  .domain(xExtent)
+  .domain(xExtent).nice()
   .range([margin.left, width - margin.right])
 
 const yScale = d3
   .scaleLinear()
-  .domain(yExtent)
+  .domain(yExtent).nice()
   .range([height - margin.bottom, margin.top])
 ```
 
