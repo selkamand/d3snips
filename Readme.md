@@ -1,10 +1,10 @@
-# D3 snippets {.unlisted .unnumbered}
+# D3 snippets
 
 Quick Reference D3 snippets
 
 ## Table of Contents
 
-- [D3 snippets {.unlisted .unnumbered}](#d3-snippets-unlisted-unnumbered)
+- [D3 snippets](#d3-snippets)
   - [Table of Contents](#table-of-contents)
   - [Get window dimensions](#get-window-dimensions)
     - [Dynamic](#dynamic)
@@ -22,10 +22,10 @@ Quick Reference D3 snippets
     - [Version 3 (use an accessor function + scale function)](#version-3-use-an-accessor-function--scale-function)
   - [Mapping properties to point radius](#mapping-properties-to-point-radius)
   - [Draw marks](#draw-marks)
-  - [Datasets](#datasets)
-    - [Test Dataset](#test-dataset)
-  - [HTML](#html)
-    - [Removing overflow and margins](#removing-overflow-and-margins)
+- [Datasets](#datasets)
+  - [Test Dataset](#test-dataset)
+- [HTML](#html)
+  - [Removing overflow and margins](#removing-overflow-and-margins)
 
 
 ## Get window dimensions
@@ -346,9 +346,9 @@ svg
   .attr("r", (d) => d.radius);
 ```
 
-## Datasets
+# Datasets
 
-### Test Dataset
+## Test Dataset
 
 This test dataset includes both categorical and quantitative features.
 correlatedVar and antiCorrelatedVar are relative to age.
@@ -381,9 +381,9 @@ const data = [
 ```
 
 
-## HTML
+# HTML
 
-### Removing overflow and margins
+## Removing overflow and margins
 
 To remove scroll bars and html default margins around svg elements add the following to your html head
 
