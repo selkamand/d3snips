@@ -256,6 +256,9 @@ Instead, use d3 selectAll/join pattern with a single length data array to update
 
 
 ```{javascript}
+const xAxis = d3.axisBottom(xScale);
+const yAxis = d3.axisLeft(yScale);
+
 svg
   .selectAll(".x-axis")
   .data([null])
@@ -264,13 +267,14 @@ svg
   .attr("transform", `translate(0, ${height - margin.bottom})`)
   .call(xAxis);
 
-svg
-  .selectAll(".y-axis")
+selection
+  .selectAll('.y-axis')
   .data([null])
-  .join("g")
-  .attr("class", "y-axis")
-  .attr("transform", `translate(0, ${height - margin.bottom})`)
-  .call(xAxis);
+  .join('g')
+  .attr('class', 'y-axis')
+  .attr('transform', `translate(${margin.left},0)`)
+  .call(yAxis)
+
 ```
 
 ## Creating 'marks' data
