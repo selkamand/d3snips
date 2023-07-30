@@ -16,6 +16,7 @@ Quick Reference D3 snippets
   - [Data bounds: d3.extent \& nice (recommended)](#data-bounds-d3extent--nice-recommended)
   - [For Categorical Variables](#for-categorical-variables)
 - [Drawing Axis](#drawing-axis)
+  - [Reusable plot version](#reusable-plot-version)
 - [Creating 'marks' data](#creating-marks-data)
   - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
   - [Version 2 (use an accessor function)](#version-2-use-an-accessor-function)
@@ -245,6 +246,31 @@ svg
   .attr("transform", `translate(${margin.left}, 0)`)
   .call(yAxis);
 
+```
+
+### Reusable plot version
+
+If drawing plots in a function that might be called multiple times, you'll have to drop all 'append' calls (otherwise the axes will be drawn over the top of one another each time function is called).
+
+Instead, use d3 selectAll/join pattern with a single length data array to update existing axes each time the plotting wrapper function is called.
+
+
+```{javascript}
+svg
+  .selectAll(".x-axis")
+  .data([null])
+  .join("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${height - margin.bottom})`)
+  .call(xAxis);
+
+svg
+  .selectAll(".y-axis")
+  .data([null])
+  .join("g")
+  .attr("class", "y-axis")
+  .attr("transform", `translate(0, ${height - margin.bottom})`)
+  .call(xAxis);
 ```
 
 ## Creating 'marks' data
