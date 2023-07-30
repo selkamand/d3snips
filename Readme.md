@@ -265,8 +265,8 @@ const data = [
 
 // Create marks array
 const marks = data.map((d) => ({
-  x: d.age,
-  y: d.height,
+  xpos: d.age,
+  ypos: d.height,
 }));
 ```
 
