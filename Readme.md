@@ -25,7 +25,7 @@ Quick Reference D3 snippets
 - [Draw marks](#draw-marks)
 - [Hover and Move events](#hover-and-move-events)
   - [Basics of listeners \& event functions](#basics-of-listeners--event-functions)
-  - [Changing Colour on Hover](#changing-colour-on-hover)
+  - [Hover: change colour, outline \& renderOrder](#hover-change-colour-outline--renderorder)
 - [Datasets](#datasets)
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
@@ -451,22 +451,32 @@ svg
 
 So how do we use this to create cool effects?
 
-### Changing Colour on Hover
+### Hover: change colour, outline & renderOrder
 
 We may want to change fill colour of a point when hovered over, and revert when not.
 
 ```{javascript}
 // Define functions that run when events are triggered
 const mouseover = (event) => {
-  event.target.style.fill = "purple" 
+  const target = event.target
+
+  target.style.fill = "purple" 
+  target.style.stroke = "black";
+  target.style.strokeWidth = "8pt";
+
+  // Move element to end of the parent group so it renders on`` top of the others
+  const parent = event.target.parentElement;
+  parent.appendChild(event.target);
 };
+
 const mouseleave = (event) => {
-  const originalColor = event.target.getAttribute("fill");
-  event.target.style.fill = originalColor;
+  const target = event.target
+  target.style.fill = target.getAttribute("fill");
+  target.style.strokeWidth = target.getAttribute("strokeWidth");
+  target.style.stroke = target.getAttribute("stroke");
 };
 
 // Add use .on('') to add triggers to points when drawing your marks
-
 svg
   .selectAll("circle")
   .data(marks)
@@ -483,7 +493,6 @@ svg
 Note that mouseleave works since the attribute 'fill' stays the same once set by `.attr("fill", "black")` even when we change the style. It is the style that controls how it looks in the end. 
 
 We can use this as a general pattern to change/revert any aesthetic property on hover.
-
 
 
 
@@ -520,7 +529,6 @@ const data = [
     { id: 20, name: 'Person50', age: 45, correlatedVar: 57, antiCorrelatedVar: 55, gender: 'Female', city: 'New York' }
   ];
 ```
-
 
 ## HTML
 
