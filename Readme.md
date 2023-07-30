@@ -23,6 +23,9 @@ Quick Reference D3 snippets
   - [Version 3 (use an accessor function + scale function)](#version-3-use-an-accessor-function--scale-function)
 - [Mapping properties to point radius](#mapping-properties-to-point-radius)
 - [Draw marks](#draw-marks)
+- [Hover and Move events](#hover-and-move-events)
+  - [Basics of listeners \& event functions](#basics-of-listeners--event-functions)
+  - [Changing Colour on Hover](#changing-colour-on-hover)
 - [Datasets](#datasets)
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
@@ -408,6 +411,81 @@ svg
   .attr("cy", (d) => d.ypos)
   .attr("r", (d) => d.radius);
 ```
+
+## Hover and Move events
+
+### Basics of listeners & event functions
+
+To trigger events (e.g. tooltip rendering) on mouse on / mousemove / mouseleave etc, you can use the **.on** method on a d3 selection to add a listener that triggers some function on whichever events you are interested in.
+
+Within event functions, you can figure out what value syou have access to using the MDN documentation (e.g. for [mouseover]([https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event])). The most important properties include **target**
+
+```{javascript}
+// Define functions that run when events are triggered
+const mouseover = (event) => {
+  console.log("mouseover");
+  // Run whatever you want
+};
+const mousemove = (event) => {
+  console.log("mousemove");
+};
+const mouseleave = (event) => {
+  console.log("mouseleave");
+};
+
+
+// Add use .on('') to add triggers to points when drawing your marks
+
+svg
+  .selectAll("circle")
+  .data(marks)
+  .join("circle")
+  .attr("cx", (d) => d.xpos)
+  .attr("cy", (d) => d.ypos)
+  .attr("r", (d) => d.radius)
+  // Mouse over methods
+  .on("mouseover", mouseover)
+  .on("mousemove", mousemove)
+  .on("mouseleave", mouseleave);
+```
+
+So how do we use this to create cool effects?
+
+### Changing Colour on Hover
+
+We may want to change fill colour of a point when hovered over, and revert when not.
+
+```{javascript}
+// Define functions that run when events are triggered
+const mouseover = (event) => {
+  event.target.style.fill = "purple" 
+};
+const mouseleave = (event) => {
+  const originalColor = event.target.getAttribute("fill");
+  event.target.style.fill = originalColor;
+};
+
+// Add use .on('') to add triggers to points when drawing your marks
+
+svg
+  .selectAll("circle")
+  .data(marks)
+  .join("circle")
+  .attr("cx", (d) => d.xpos)
+  .attr("cy", (d) => d.ypos)
+  .attr("r", (d) => d.radius)
+  .attr("fill", "black")
+  // Mouse methods
+  .on("mouseover", mouseover)
+  .on("mouseleave", mouseleave);
+```
+
+Note that mouseleave works since the attribute 'fill' stays the same once set by `.attr("fill", "black")` even when we change the style. It is the style that controls how it looks in the end. 
+
+We can use this as a general pattern to change/revert any aesthetic property on hover.
+
+
+
 
 ## Datasets
 
