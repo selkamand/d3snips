@@ -14,6 +14,7 @@ Quick Reference D3 snippets
 - [Getting Data bounds](#getting-data-bounds)
   - [Data bounds: d3.Min and d3.Max](#data-bounds-d3min-and-d3max)
   - [Data bounds: d3.extent \& nice (recommended)](#data-bounds-d3extent--nice-recommended)
+  - [For Categorical Variables](#for-categorical-variables)
 - [Drawing Axis](#drawing-axis)
 - [Creating 'marks' data](#creating-marks-data)
   - [Version 1 (simple but inflexible)](#version-1-simple-but-inflexible)
@@ -185,6 +186,39 @@ const yScale = d3
   .domain(yExtent).nice()
   .range([height - margin.bottom, margin.top])
 ```
+
+### For Categorical Variables
+
+The domain of categorical axes defined using scaleBand, the 'extent' of the data (i.e. domain) is a unique array of all possible values. These can be defined from the data as follows:
+
+
+```{javascript}
+const data = [
+  { x: 'A', y: 10 },
+  { x: 'A', y: 20 },
+  { x: 'B', y: 15 },
+  { x: 'C', y: 25 },
+  { x: 'C', y: 18 },
+];
+
+// Get Unique values for X and Y axes
+const uniqueX = [...new Set(data.map((item) => item.x))];
+
+const xScale = d3
+  .scaleBand()
+  .domain(uniqueX);
+```
+
+However its worth noting, the d3 .domain function automatically makes inputs unique, so you can just input the whole array and let d3 handle making the values unique
+
+```{javascript}
+// D3 .domain method automatically coercess inputs to be unique
+const xScale = d3
+  .scaleBand()
+  .domain(data.map(d => d.x));
+```
+
+
 
 ## Drawing Axis
 
