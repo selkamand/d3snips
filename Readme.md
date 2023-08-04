@@ -26,6 +26,9 @@ Quick Reference D3 snippets
 - [Hover and Move events](#hover-and-move-events)
   - [Basics of listeners \& event functions](#basics-of-listeners--event-functions)
   - [Hover: change colour, outline \& renderOrder](#hover-change-colour-outline--renderorder)
+- [Reusable Charts](#reusable-charts)
+  - [Basics of Method Chaining](#basics-of-method-chaining)
+  - [Making new scales](#making-new-scales)
 - [Datasets](#datasets)
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
@@ -491,10 +494,73 @@ svg
 ```
 
 Note that mouseleave works since the attribute 'fill' stays the same once set by `.attr("fill", "black")` even when we change the style. It is the style that controls how it looks in the end. 
-
+``
 We can use this as a general pattern to change/revert any aesthetic property on hover.
 
+## Reusable Charts
 
+### Basics of Method Chaining
+
+```
+export const scatterPlot = () => {
+  # Properties
+  let width;
+  let height;
+  let data;
+  let xValue;
+  let yValue;
+  let margin;
+  let radius;
+
+
+  const my = (selection) => {
+    // Create Chart
+  };
+
+
+  // Getter and setter for 'width' property
+  // If an argument is provided, set 'width' to the provided value and return 'my' for method chaining. 
+  // If no width is supplied return the current value of width
+
+  my.width = function (_) {
+    return arguments.length ? ((width = +_), my) : 
+    width;
+  };
+
+  my.height = function (_) {
+    return arguments.length ? ((height = +_), my) : height;
+  };
+
+  my.data = function (_) {
+    return arguments.length ? ((data = _), my) : data;
+  };
+
+  my.xValue = function (_) {
+    return arguments.length ? ((xValue = _), my) : xValue;
+  };
+
+  my.yValue = function (_) {
+    return arguments.length ? ((yValue = _), my) : yValue;
+  };
+
+  my.margin = function (_) {
+    return arguments.length ? ((margin = _), my) : margin;
+  };
+
+  my.radius = function (_) {
+    return arguments.length ? ((radius = +_), my) : radius;
+  };
+
+  //return function for method chaining
+  return my;
+};
+
+
+```
+
+### Making new scales
+
+Use the example above but the `my` function needs to take as input values and output pixel values
 
 ## Datasets
 
