@@ -564,7 +564,7 @@ For convenience: heres a snippet to add to your vscode javascript.json file
 		"prefix": "getset",
 		"body": [
 			"my.${1:property} = function (_) {",
-			"\treturn arguments.length ? ((domain = ${1:property}), my) : ${1:property};",
+			"\treturn arguments.length ? ((${1:property} = _), my) : ${1:property};",
 			"};"
 		],
 		"description": "Log output to console"
