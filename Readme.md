@@ -523,8 +523,7 @@ export const scatterPlot = () => {
   // If no width is supplied return the current value of width
 
   my.width = function (_) {
-    return arguments.length ? ((width = +_), my) : 
-    width;
+    return arguments.length ? ((width = +_), my) : width;
   };
 
   my.height = function (_) {
@@ -556,6 +555,20 @@ export const scatterPlot = () => {
 };
 
 
+```
+
+For convenience: heres a snippet to add to your vscode javascript.json file
+
+```
+	"getter & setter for method chaining": {
+		"prefix": "getset",
+		"body": [
+			"my.${1:property} = function (_) {",
+			"\treturn arguments.length ? ((domain = ${1:property}), my) : ${1:property};",
+			"};"
+		],
+		"description": "Log output to console"
+	}
 ```
 
 ### Making new scales
