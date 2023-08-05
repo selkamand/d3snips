@@ -557,7 +557,7 @@ export const scatterPlot = () => {
 
 ```
 
-For convenience: heres a snippet to add to your vscode javascript.json file
+For convenience: heres some snippets to add to your vscode javascript.json file
 
 ```
 	"getter & setter for method chaining": {
@@ -567,7 +567,29 @@ For convenience: heres a snippet to add to your vscode javascript.json file
 			"\treturn arguments.length ? ((${1:property} = _), my) : ${1:property};",
 			"};"
 		],
-		"description": "Log output to console"
+		"description": "Getter and setter for a method chaining function"
+	},
+
+	"Longform getter & setter for method chaining": {
+		"prefix": "getsetlong",
+		"body": [
+			"my.${1:property} = function (_) {",
+			"\tif (!arguments.length) return ${1:property};",
+			"\t${1:property} = _;",
+			"\treturn my",
+			"};"
+		],
+		"description": "Longform getter and setter for a method chaining function"
+	},
+	
+	"Getter": {
+		"prefix": "get",
+		"body": [
+			"my.${1:property} = function () {",
+			"\treturn ${1:property};",
+			"};"
+		],
+		"description": "Getter"
 	}
 ```
 
