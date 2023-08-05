@@ -29,6 +29,10 @@ Quick Reference D3 snippets
 - [Reusable Charts](#reusable-charts)
   - [Basics of Method Chaining](#basics-of-method-chaining)
   - [Making new scales](#making-new-scales)
+- [Vscode Setup](#vscode-setup)
+  - [Webpack and bundling](#webpack-and-bundling)
+  - [vs-code snippets](#vs-code-snippets)
+    - [Getters and Setters with Method Chaining](#getters-and-setters-with-method-chaining)
 - [Datasets](#datasets)
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
@@ -501,6 +505,10 @@ We can use this as a general pattern to change/revert any aesthetic property on 
 
 ### Basics of Method Chaining
 
+To understand the following example, you must understand a couple of javascript nuances
+
+1. Functions are objects. For example the `scatterPlot` function returns a function `my`. This function its own methods (e.g. getter setters), each of which return the `my` function
+
 ```
 export const scatterPlot = () => {
   # Properties
@@ -557,7 +565,45 @@ export const scatterPlot = () => {
 
 ```
 
+
+
+### Making new scales
+
+Use the example above but the `my` function needs to take as input values and output pixel values
+
+## Vscode Setup
+
+### Webpack and bundling
+
+Get javascript imports and es6 modules working using webpack and babel.
+
+1. Install webpack extension for vscode
+2. Run: Create webpack. Should create a webpack.config.js file
+3. Edit webpadk.config.js and set the entrypoint. If your using an index.js entrypoint, set it to: 
+   `entry: path.join(__dirname, "index"),`
+4. Edit your packages.json and ensure `"main": "index.js"` and **build** is set to "webpack" (see below)
+
+``` 
+"scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+```
+
+5. Run: `npm run build` to create your bundle.js
+6. Ensure your index.html is pointed towards your `bundle.js file`
+
+```
+ <script src="./dist/bundle.js"></script>
+```
+
+Once you run `npm run build` webpack will keep running and regenerate your bundle.js on-save so you can work as normal
+
+
+### vs-code snippets
 For convenience: heres some snippets to add to your vscode javascript.json file
+
+#### Getters and Setters with Method Chaining
 
 ```
 	"getter & setter for method chaining": {
@@ -592,10 +638,6 @@ For convenience: heres some snippets to add to your vscode javascript.json file
 		"description": "Getter"
 	}
 ```
-
-### Making new scales
-
-Use the example above but the `my` function needs to take as input values and output pixel values
 
 ## Datasets
 
