@@ -28,6 +28,7 @@ Quick Reference D3 snippets
   - [Hover: change colour, outline \& renderOrder](#hover-change-colour-outline--renderorder)
 - [Reusable Charts](#reusable-charts)
   - [Basics of Method Chaining](#basics-of-method-chaining)
+- [Using Groups](#using-groups)
   - [Making new scales](#making-new-scales)
 - [Vscode Setup](#vscode-setup)
   - [Webpack and bundling](#webpack-and-bundling)
@@ -565,6 +566,46 @@ export const scatterPlot = () => {
 
 ```
 
+## Using Groups
+
+In D3 you can create 'group' elements that you can append loads of elements to. This allows you to move all the elements around as a group using the 'transform' attribute of the parent group. Child x and y positions are generated relative to the parent group.
+
+See the example below.
+
+
+```
+    const circlesData = [
+      { cx: 0, cy: 0, r: 20 },
+      { cx: 50, cy: 50, r: 20 },
+      { cx: 100, cy: 100, r: 30 },
+      { cx: 150, cy: 150, r: 25 }
+    ];
+
+    // Create an SVG element
+    const svg = d3.select("svg");
+
+    // Create a group element and append it to the SVG
+    const group = svg.append("g")
+                     .attr("transform", "translate(50, 50)"); // Move the group 50px to the right and 50px down
+
+    // Create circles and append them to the group
+    group.selectAll("circle")
+         .data(circlesData)
+         .join("circle")
+         .attr("cx", d => d.cx)
+         .attr("cy", d => d.cy)
+         .attr("r", d => d.r)
+         .attr("fill", "steelblue");
+```
+
+You can define an expression to evaluate in the translate call:
+
+```
+const x = 50, y = 50;
+const group = svg.append("g")
+                     .attr("transform", `translate( ${x},${y})`); // Move the group 50px to the right and 50px down
+
+```
 
 
 ### Making new scales
