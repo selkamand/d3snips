@@ -38,6 +38,8 @@ Quick Reference D3 snippets
   - [Test Dataset](#test-dataset)
 - [HTML](#html)
   - [Removing overflow and margins](#removing-overflow-and-margins)
+- [Miscellaneous Javascript Tips](#miscellaneous-javascript-tips)
+  - [Setting up unit testing](#setting-up-unit-testing)
 
 
 ## Get window dimensions
@@ -618,11 +620,14 @@ Use the example above but the `my` function needs to take as input values and ou
 
 Get javascript imports and es6 modules working using webpack and babel.
 
-1. Install webpack extension for vscode
-2. Run: Create webpack. Should create a webpack.config.js file
-3. Edit webpadk.config.js and set the entrypoint. If your using an index.js entrypoint, set it to: 
+1. Run `npm init -y` to initialise your project
+2. Run `npm install webpack webpack-cli --save-dev`
+3. Install any other dependencies you want (e.g. `npm install d3`)
+4. Install webpack extension for vscode if you dont already have it
+5. Run: Create webpack. Should create a webpack.config.js file
+6. Edit webpadk.config.js and set the entrypoint. If your using an index.js entrypoint, set it to: 
    `entry: path.join(__dirname, "index"),`
-4. Edit your packages.json and ensure `"main": "index.js"` and **build** is set to "webpack" (see below)
+7. Edit your packages.json and ensure `"main": "index.js"` and **build** is set to "webpack" (see below)
 
 ``` 
 "scripts": {
@@ -680,6 +685,7 @@ For convenience: heres some snippets to add to your vscode javascript.json file
 	}
 ```
 
+
 ## Datasets
 
 ### Test Dataset
@@ -728,3 +734,12 @@ To remove scroll bars and html default margins around svg elements add the follo
       }
     </style>
 ```
+
+
+## Miscellaneous Javascript Tips
+
+### Setting up unit testing
+
+1. npm install jest
+2. Set 'test' script in package.json to 'jest': `"test": "jest --coverage"`
+3. If using es6 modules & webpack you will need to make additional changes: https://jestjs.io/docs/getting-started#using-webpack
