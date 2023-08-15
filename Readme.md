@@ -514,7 +514,7 @@ To understand the following example, you must understand a couple of javascript 
 
 ```
 export const scatterPlot = () => {
-  # Properties
+  // Properties
   let width;
   let height;
   let data;
